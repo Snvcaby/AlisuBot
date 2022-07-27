@@ -1,4 +1,4 @@
-package config
+package configxxx
 
 import net.mamoe.mirai.console.data.AutoSavePluginConfig
 import net.mamoe.mirai.console.data.ValueDescription

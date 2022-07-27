@@ -4,7 +4,7 @@ import net.mamoe.mirai.console.command.CommandManager.INSTANCE.register
 import net.mamoe.mirai.console.plugin.jvm.JvmPluginDescription
 import net.mamoe.mirai.console.plugin.jvm.KotlinPlugin
 import net.mamoe.mirai.utils.info
-import config.osuConfig
+import configxxx.osuConfig
 import xyz.irosoralive.commandOsu.osuUser
 
 object AlisuBot : KotlinPlugin(

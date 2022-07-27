@@ -1,4 +1,4 @@
-package utils
+package utilsxxx
 
 import xyz.irosoralive.bean.osuUserBean
 
@@ -15,8 +15,6 @@ object JsonUtil {
         outStrBuilder.appendLine("Accuracy:${String.format("%.2f",userBean.accuracy)}%")
         outStrBuilder.appendLine("Rank:${userBean.ppRank}")
         outStrBuilder.appendLine("SelfCountryRank:${userBean.ppCountryRank}")
-
-
         return outStrBuilder.toString()
     }
 }
