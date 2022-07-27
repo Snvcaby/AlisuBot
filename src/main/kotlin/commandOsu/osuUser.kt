@@ -55,6 +55,5 @@ object osuUser : CompositeCommand(
     }
 
     //todo
-    //数据绑定
     //preview
 }
