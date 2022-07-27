@@ -6,9 +6,9 @@ import net.mamoe.mirai.console.command.CommandSenderOnMessage
 import net.mamoe.mirai.console.command.CompositeCommand
 import net.mamoe.mirai.message.data.MessageSource.Key.quote
 import xyz.irosoralive.AlisuBot
-import configxxx.osuConfig.modeInSearch
-import configxxx.osuConfig.osuAPI_key
-import utilsxxx.JsonUtil
+import config.osuConfig.modeInSearch
+import config.osuConfig.osuAPI_key
+import utils.JsonUtil
 import xyz.irosoralive.bean.osuUserBean
 import java.net.URL
 
