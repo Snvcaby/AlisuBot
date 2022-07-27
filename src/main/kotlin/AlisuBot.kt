@@ -6,6 +6,7 @@ import net.mamoe.mirai.console.plugin.jvm.KotlinPlugin
 import net.mamoe.mirai.utils.info
 import config.osuConfig
 import xyz.irosoralive.commandOsu.osuUser
+import xyz.irosoralive.data.osuBindData
 
 object AlisuBot : KotlinPlugin(
     JvmPluginDescription(
@@ -20,6 +21,9 @@ object AlisuBot : KotlinPlugin(
     override fun onEnable() {
         logger.info { "AlisuBot Loading Complete!" }
         osuUser.register()
+
         osuConfig.reload()
+
+        osuBindData.reload()
     }
 }

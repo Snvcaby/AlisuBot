@@ -22,15 +22,13 @@ object osuUser : CompositeCommand(
     suspend fun CommandSender.userinfo(username: String) {
         try {
 
-            val api = osuAPI_key
-            val mode = modeInSearch
 
-            val url: String = "https://osu.ppy.sh/api/get_user?k=${api}&u=${username}&m=${mode}"
+            val url: String = "https://osu.ppy.sh/api/get_user?k=${osuAPI_key}&u=${username}&m=${modeInSearch}"
             val userJsonS: String = URL(url).readText().drop(1).dropLast(1)
 
             if (userJsonS.equals("\"error\":\"Please provide a valid API key.\"")) {
                 sendMessage((this as CommandSenderOnMessage<*>).fromEvent.source.quote() + "非法API，请核对配置：osuConfig中的osuAPI_key是否填写错误。")
-            } else if (mode != 0 && mode != 1 && mode != 2 && mode != 3) {
+            } else if (modeInSearch != 0 && modeInSearch != 1 && modeInSearch != 2 && modeInSearch != 3) {
                 sendMessage((this as CommandSenderOnMessage<*>).fromEvent.source.quote() + "非法的模式，请核对配置：osuConfig中的modeInSearch是否填写错误")
             } else {
                 val user: osuUserBean = Gson().fromJson(userJsonS, osuUserBean::class.java)
@@ -48,6 +46,12 @@ object osuUser : CompositeCommand(
         } catch (e: Exception) {
             e.printStackTrace()
         }
+    }
+
+    @SubCommand("bind")
+    @Description("qq号与用户名绑定")
+    suspend fun CommandSender.userBind(username: String){
+
     }
 
     //todo
