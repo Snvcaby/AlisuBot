@@ -28,6 +28,5 @@ data class osuUserBean(
     val accuracy:Double, //准确度
     @SerializedName("country")
     val country:String,   //国家
-
-
 )
+

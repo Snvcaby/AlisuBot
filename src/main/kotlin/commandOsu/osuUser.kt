@@ -10,6 +10,7 @@ import config.osuConfig.modeInSearch
 import config.osuConfig.osuAPI_key
 import utils.JsonUtil
 import xyz.irosoralive.bean.osuUserBean
+import xyz.irosoralive.data.osuBindData.bindMap
 import java.net.URL
 
 object osuUser : CompositeCommand(
@@ -23,7 +24,7 @@ object osuUser : CompositeCommand(
         try {
 
 
-            val url: String = "https://osu.ppy.sh/api/get_user?k=${osuAPI_key}&u=${username}&m=${modeInSearch}"
+            val url = "https://osu.ppy.sh/api/get_user?k=${osuAPI_key}&u=${username}&m=${modeInSearch}"
             val userJsonS: String = URL(url).readText().drop(1).dropLast(1)
 
             if (userJsonS.equals("\"error\":\"Please provide a valid API key.\"")) {
@@ -51,7 +52,19 @@ object osuUser : CompositeCommand(
     @SubCommand("bind")
     @Description("qq号与用户名绑定")
     suspend fun CommandSender.userBind(username: String){
+        try {
+            val qq:Long = (this as CommandSenderOnMessage<*>).user!!.id
 
+            sendMessage((this as CommandSenderOnMessage<*>).fromEvent.source.quote() + "qq是${qq}")
+
+            if(bindMap[qq] ==null){
+                bindMap += Pair(qq,username)
+                sendMessage((this as CommandSenderOnMessage<*>).fromEvent.source.quote() + bindMap.toString())
+            }
+
+        }catch (e: Exception){
+            e.printStackTrace()
+        }
     }
 
     //todo
