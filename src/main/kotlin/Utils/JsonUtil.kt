@@ -1,4 +1,4 @@
-package xyz.irosoralive.Utils
+package utils
 
 import xyz.irosoralive.bean.osuUserBean
 
