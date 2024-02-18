@@ -1,6 +1,7 @@
 package xyz.irosoralive.commandOsu
 
 import com.google.gson.Gson
+import config.osuConfig
 import net.mamoe.mirai.console.command.CommandSender
 import net.mamoe.mirai.console.command.CommandSenderOnMessage
 import net.mamoe.mirai.console.command.CompositeCommand
@@ -8,10 +9,10 @@ import net.mamoe.mirai.message.data.MessageSource.Key.quote
 import xyz.irosoralive.AlisuBot
 import config.osuConfig.modeInSearch
 import config.osuConfig.osuAPI_key
+import io.ktor.http.*
 import utils.JsonUtil
+import xyz.irosoralive.AlisuBot.reload
 import xyz.irosoralive.bean.osuUserBean
-import xyz.irosoralive.commandOsu.osuUser.userinfo
-import xyz.irosoralive.data.osuBindData.bindMap
 import java.net.URL
 
 object osuUser : CompositeCommand(
@@ -24,24 +25,29 @@ object osuUser : CompositeCommand(
     suspend fun CommandSender.userinfo(username: String) {
         try {
 
-
+            val tempAPI = "e82d1aa1289f2d36cb747c843f8bc88ea82956d2"
             val url = "https://osu.ppy.sh/api/get_user?k=${osuAPI_key}&u=${username}&m=${modeInSearch}"
-            val userJsonS: String = URL(url).readText().drop(1).dropLast(1)
 
+//            val url = "https://osu.ppy.sh/api/get_user?k=${tempAPI}&u=${username}&m=${modeInSearch}"
+
+            val rowJs:String = URL(url).readText()
+
+            val userJsonS: String
+            if (rowJs!=null){
+                userJsonS = URL(url).readText().drop(1).dropLast(1)
+            }else{
+                userJsonS = null.toString()
+            }
             if (userJsonS.equals("\"error\":\"Please provide a valid API key.\"")) {
-                sendMessage((this as CommandSenderOnMessage<*>).fromEvent.source.quote() + "非法API，请核对配置：osuConfig中的osuAPI_key是否填写错误。")
+                sendMessage((this as CommandSenderOnMessage<*>).fromEvent.source.quote() + "非法API，请核对配置：osuConfig中的osuAPI_key是否填写错误.")
             } else if (modeInSearch != 0 && modeInSearch != 1 && modeInSearch != 2 && modeInSearch != 3) {
-                sendMessage((this as CommandSenderOnMessage<*>).fromEvent.source.quote() + "非法的模式，请核对配置：osuConfig中的modeInSearch是否填写错误")
+                sendMessage((this as CommandSenderOnMessage<*>).fromEvent.source.quote() + "非法的模式，请核对配置：osuConfig中的modeInSearch是否填写错误.")
+            } else if (userJsonS == "") {
+                sendMessage((this as CommandSenderOnMessage<*>).fromEvent.source.quote() + "找不到用户，打错了还是销号跑路了?")
             } else {
                 val user: osuUserBean = Gson().fromJson(userJsonS, osuUserBean::class.java)
-                when (userJsonS) {
-                    "" -> sendMessage((this as CommandSenderOnMessage<*>).fromEvent.source.quote() + "未知的用户")
-                    else -> {
-                        val out = JsonUtil.findUser(user)
-                        sendMessage((this as CommandSenderOnMessage<*>).fromEvent.source.quote() + out)
-                    }
-
-                }
+                val out = JsonUtil.findUser(user)
+                sendMessage((this as CommandSenderOnMessage<*>).fromEvent.source.quote() + out)
             }
 
 
@@ -49,6 +55,12 @@ object osuUser : CompositeCommand(
             e.printStackTrace()
         }
     }
+    @SubCommand("reload")
+    @Description("重载config")
+    suspend fun CommandSender.reload(){
+        osuConfig.reload()
+    }
+
 
 //    @SubCommand("self")
 //    @Description("查询自身用户信息")
