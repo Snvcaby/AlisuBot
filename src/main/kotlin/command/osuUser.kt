@@ -1,7 +1,6 @@
 package xyz.irosoralive.commandOsu
 
 import com.google.gson.Gson
-import config.osuConfig
 import net.mamoe.mirai.console.command.CommandSender
 import net.mamoe.mirai.console.command.CommandSenderOnMessage
 import net.mamoe.mirai.console.command.CompositeCommand
@@ -10,8 +9,7 @@ import xyz.irosoralive.AlisuBot
 import config.osuConfig.modeInSearch
 import config.osuConfig.osuAPI_key
 import io.ktor.http.*
-import utils.JsonUtil
-import xyz.irosoralive.AlisuBot.reload
+import xyz.irosoralive.utils.JsonUtil
 import xyz.irosoralive.bean.osuUserBean
 import java.net.URL
 
@@ -25,7 +23,7 @@ object osuUser : CompositeCommand(
     suspend fun CommandSender.userinfo(username: String) {
         try {
 
-            val tempAPI = "e82d1aa1289f2d36cb747c843f8bc88ea82956d2"
+//            val tempAPI = "e82d1aa1289f2d36cb747c843f8bc88ea82956d2"
             val url = "https://osu.ppy.sh/api/get_user?k=${osuAPI_key}&u=${username}&m=${modeInSearch}"
 
 //            val url = "https://osu.ppy.sh/api/get_user?k=${tempAPI}&u=${username}&m=${modeInSearch}"
@@ -54,11 +52,6 @@ object osuUser : CompositeCommand(
         } catch (e: Exception) {
             e.printStackTrace()
         }
-    }
-    @SubCommand("reload")
-    @Description("重载config")
-    suspend fun CommandSender.reload(){
-        osuConfig.reload()
     }
 
 

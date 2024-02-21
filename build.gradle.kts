@@ -7,7 +7,7 @@ plugins {
 }
 
 group = "xyz.irosoralive"
-version = "0.1A"
+version = "0.1B"
 
 dependencies {
     api("com.google.code.gson:gson:2.9.0")
