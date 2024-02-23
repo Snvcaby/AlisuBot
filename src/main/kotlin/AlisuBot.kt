@@ -7,7 +7,10 @@ import net.mamoe.mirai.utils.info
 import config.osuConfig
 import xyz.irosoralive.command.cocCardRoll
 import xyz.irosoralive.command.cocRoll
+import xyz.irosoralive.command.dydy
+import xyz.irosoralive.command.dydyCom
 import xyz.irosoralive.commandOsu.osuUser
+import xyz.irosoralive.data.dydyData
 import xyz.irosoralive.data.osuBindData
 
 object AlisuBot : KotlinPlugin(
@@ -16,19 +19,23 @@ object AlisuBot : KotlinPlugin(
         name = "AlisuBot",
         version = "0.1",
     ) {
-        author("IroSorA")
+        author("kkry")
         info("""A plugin for Mirai bot.""")
     }
 ) {
     override fun onEnable() {
-        logger.info { "AlisuBot Loaded Complete!" }
+        logger.info { "AlisuBot Loaded." }
         osuUser.register()
         cocRoll.register()
         cocCardRoll.register()
+        dydy.register()
+        dydyCom.register()
 
         osuConfig.reload()
 
+
         osuBindData.reload()
+        dydyData.reload()
 
 
     }

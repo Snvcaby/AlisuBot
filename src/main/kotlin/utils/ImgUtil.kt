@@ -26,7 +26,7 @@ class ImgUtil {
     fun drawCardAtTime(data: cocBaseCard,times:Int):BufferedImage{
         val cardHeight = 600
         val contentMargin = 20
-        val imgHeight = cardHeight*times+contentMargin*(times+1)
+        val imgHeight = cardHeight*times+contentMargin*(times+1)+50
         val fontSize = 30
         val fontMargin = 15
         val sCardWidth = 165
@@ -62,7 +62,7 @@ class ImgUtil {
                 fillRoundRect(4*contentMargin+2*sCardWidth,contentMargin*(i+4)+600*(i-1)+50+2*sCardHeight,sCardWidth,sCardHeight,radius,radius)//9
 
                 fillRoundRect(5*contentMargin+3*sCardWidth,contentMargin*(i+2)+600*(i-1)+50,sCardWidth,mCardHeight,radius,radius)//ex1
-                fillRoundRect(5*contentMargin+3*sCardWidth,contentMargin*(i+4)+600*(i-1)+50+mCardHeight,sCardWidth,mCardHeight,radius,radius)//ex2
+                fillRoundRect(5*contentMargin+3*sCardWidth,contentMargin*(i+3)+600*(i-1)+50+mCardHeight,sCardWidth,mCardHeight+contentMargin,radius,radius)//ex2
 
 
                 color=Color(85,66,54) //字体颜色
@@ -83,8 +83,8 @@ class ImgUtil {
                 drawString("幸运    " + data.Luck,4*contentMargin+2*sCardWidth+fontMargin,contentMargin*(i+4)+600*(i-1)+50+2*sCardHeight+fixedOffsetY+fontMargin)
 
                 drawString("总能力值",5*contentMargin+3*sCardWidth+fontMargin,contentMargin*(i+2)+600*(i-1)+50+fixedOffsetY+fontMargin)
-                drawString("总能力值",5*contentMargin+3*sCardWidth+fontMargin,contentMargin*(i+4)+600*(i-1)+50+mCardHeight+fixedOffsetY+fontMargin)
-                drawString("计入幸运",5*contentMargin+3*sCardWidth+fontMargin,contentMargin*(i+4)+600*(i-1)+50+mCardHeight+fixedOffsetY+2*fontMargin+fontSize)
+                drawString("总能力值",5*contentMargin+3*sCardWidth+fontMargin,contentMargin*(i+3)+600*(i-1)+50+mCardHeight+fixedOffsetY+fontMargin)
+                drawString("计入幸运",5*contentMargin+3*sCardWidth+fontMargin,contentMargin*(i+3)+600*(i-1)+50+mCardHeight+fixedOffsetY+2*fontMargin+fontSize)
 
                 color=Color(114,72,50)
                 drawString(attributeTier.STRAtt[cardTier(data.STR)],2*contentMargin+2*fontMargin,contentMargin*(i+2)+600*(i-1)+50+fixedOffsetY+fontMargin+2*fontSize)
@@ -100,11 +100,13 @@ class ImgUtil {
                 drawString(attributeTier.LuckAtt[cardTier(data.Luck)],4*contentMargin+2*sCardWidth+2*fontMargin,contentMargin*(i+4)+600*(i-1)+50+2*sCardHeight+fixedOffsetY+fontMargin+2*fontSize)
 
                 drawString(data.cardTotal().toString(),5*contentMargin+3*sCardWidth+fontMargin,contentMargin*(i+2)+600*(i-1)+50+fixedOffsetY+2*fontMargin+3*fontSize)
-                drawString(data.cardTotalIncludeLuck().toString(),5*contentMargin+3*sCardWidth+fontMargin,contentMargin*(i+4)+600*(i-1)+50+mCardHeight+fixedOffsetY+2*fontMargin+3*fontSize)
+                drawString(data.cardTotalIncludeLuck().toString(),5*contentMargin+3*sCardWidth+fontMargin,contentMargin*(i+3)+600*(i-1)+50+mCardHeight+fixedOffsetY+2*fontMargin+3*fontSize)
 
 
             }
-
+            color = Color(254,223,225)
+            font = Font("微软雅黑",Font.PLAIN,fontSize-8)
+            drawString("注：所得评价仅为分数的参考评价，不能代表卡的某项属性的实际体现。",2*contentMargin,contentMargin*(times+2)+cardHeight*times)
 
         }
 
