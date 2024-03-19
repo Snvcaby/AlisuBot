@@ -1,6 +1,6 @@
 package xyz.irosoralive.bean
 
-import xyz.irosoralive.utils.nDmUtil.nDmForResult
+import xyz.irosoralive.utils.NDmUtil.nDmForResult
 
 data class coc(
     val code:Int

@@ -4,7 +4,7 @@ import net.mamoe.mirai.console.command.CommandManager.INSTANCE.register
 import net.mamoe.mirai.console.plugin.jvm.JvmPluginDescription
 import net.mamoe.mirai.console.plugin.jvm.KotlinPlugin
 import net.mamoe.mirai.utils.info
-import config.osuConfig
+import config.OsuConfig
 import xyz.irosoralive.command.cocCardRoll
 import xyz.irosoralive.command.cocRoll
 import xyz.irosoralive.command.dydy
@@ -31,7 +31,7 @@ object AlisuBot : KotlinPlugin(
         dydy.register()
         dydyCom.register()
 
-        osuConfig.reload()
+        OsuConfig.reload()
 
 
         osuBindData.reload()

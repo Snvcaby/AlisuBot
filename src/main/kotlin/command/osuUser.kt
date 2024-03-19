@@ -6,8 +6,8 @@ import net.mamoe.mirai.console.command.CommandSenderOnMessage
 import net.mamoe.mirai.console.command.CompositeCommand
 import net.mamoe.mirai.message.data.MessageSource.Key.quote
 import xyz.irosoralive.AlisuBot
-import config.osuConfig.modeInSearch
-import config.osuConfig.osuAPI_key
+import config.OsuConfig.modeInSearch
+import config.OsuConfig.osuAPI_key
 import io.ktor.http.*
 import xyz.irosoralive.utils.JsonUtil
 import xyz.irosoralive.bean.osuUserBean
@@ -30,13 +30,12 @@ object osuUser : CompositeCommand(
 
             val rowJs:String = URL(url).readText()
 
-            val userJsonS: String
-            if (rowJs!=null){
-                userJsonS = URL(url).readText().drop(1).dropLast(1)
+            val userJsonS: String = if (rowJs != ""){
+                URL(url).readText().drop(1).dropLast(1)
             }else{
-                userJsonS = null.toString()
+                null.toString()
             }
-            if (userJsonS.equals("\"error\":\"Please provide a valid API key.\"")) {
+            if (userJsonS == "\"error\":\"Please provide a valid API key.\"") {
                 sendMessage((this as CommandSenderOnMessage<*>).fromEvent.source.quote() + "非法API，请核对配置：osuConfig中的osuAPI_key是否填写错误.")
             } else if (modeInSearch != 0 && modeInSearch != 1 && modeInSearch != 2 && modeInSearch != 3) {
                 sendMessage((this as CommandSenderOnMessage<*>).fromEvent.source.quote() + "非法的模式，请核对配置：osuConfig中的modeInSearch是否填写错误.")

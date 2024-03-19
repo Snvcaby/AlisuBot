@@ -2,7 +2,7 @@ package xyz.irosoralive.utils
 
 import kotlin.random.Random
 
-object nDmUtil {
+object NDmUtil {
     fun nDmForResult(n:Int,m:Int):Int{
         var sum = 0
         repeat(n){
