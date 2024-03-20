@@ -16,8 +16,8 @@ import javax.imageio.ImageIO
 import xyz.irosoralive.utils.tierUtil.cardTier
 
 class ImgUtil {
-    val imgWidth = 800
-    val radius = 20
+    private val imgWidth = 800
+    private val radius = 20
     private val renderingHints = RenderingHints(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON)
 
     init {
@@ -63,7 +63,6 @@ class ImgUtil {
 
                 fillRoundRect(5*contentMargin+3*sCardWidth,contentMargin*(i+2)+600*(i-1)+50,sCardWidth,mCardHeight,radius,radius)//ex1
                 fillRoundRect(5*contentMargin+3*sCardWidth,contentMargin*(i+3)+600*(i-1)+50+mCardHeight,sCardWidth,mCardHeight+contentMargin,radius,radius)//ex2
-
 
                 color=Color(85,66,54) //字体颜色
                 font = Font("微软雅黑",Font.BOLD,fontSize)

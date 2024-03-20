@@ -1,12 +1,15 @@
 package xyz.irosoralive.command
 
 import net.mamoe.mirai.console.command.CommandSender
+import net.mamoe.mirai.console.command.CommandSenderOnMessage
 import net.mamoe.mirai.console.command.CompositeCommand
 import net.mamoe.mirai.console.command.descriptor.ExperimentalCommandDescriptors
 import net.mamoe.mirai.console.util.ConsoleExperimentalApi
 import net.mamoe.mirai.message.data.MessageChain
+import net.mamoe.mirai.message.data.QuoteReply
 import xyz.irosoralive.AlisuBot
 import xyz.irosoralive.data.dydyData
+import xyz.irosoralive.utils.QuoteReplyOriginalMessageChain.originalMessageFormLocal
 
 object dydyCom: CompositeCommand(
     AlisuBot,
@@ -18,17 +21,31 @@ object dydyCom: CompositeCommand(
     @Description("添加dydy")
     suspend fun CommandSender.add(args:MessageChain){
         try {
-            if(dydyData.dydyMessageSet.contains(args)){
-                sendMessage("失败:此消息已经包含在dydy内。")
-                return
-            }
             dydyData.dydyMessageSet.add(args)
-            sendMessage("添加成功。")
+            sendMessage("添加成功")
         }catch (e:Exception){
             e.printStackTrace()
             sendMessage("添加错误。请查看控制台日志。")
             return
         }
+
+    }
+
+    @SubCommand("add")
+    @Description("添加dydy")
+    suspend fun CommandSender.add(){
+        val ms = (this as CommandSenderOnMessage<*>).fromEvent.message[QuoteReply]
+        if(ms!=null){
+            try{
+                dydyData.dydyMessageSet.add(ms.originalMessageFormLocal)
+                sendMessage("添加成功")
+            }catch (e:Exception){
+                e.printStackTrace()
+                sendMessage("添加错误。请查看控制台日志。")
+                return
+            }
+        }
+
     }
 
 
